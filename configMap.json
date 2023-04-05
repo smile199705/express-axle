@@ -1,0 +1,8 @@
+{
+  "env": "development",
+  "port": 8081,
+  "db": {
+    "url": "dm://TEST:123456789@127.0.0.1:5236?autoCommit=true",
+    "rowLength": 100
+  }
+}
