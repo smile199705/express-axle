@@ -6,11 +6,11 @@ import dmdb from 'dmdb'
 
 class Model {
     constructor () {
-        // 实例已经存在，则返回该实例
-        if (Model.instance) {
-            return Model.instance
-        }
-        Model.instance = this
+        // // 实例已经存在，则返回该实例
+        // if (Model.instance) {
+        //     return Model.instance
+        // }
+        // Model.instance = this
     }
 
     /**
@@ -20,8 +20,12 @@ class Model {
      * @returns {Promise<*>}
      */
     async executes (sql, arr = []) {
-        const conn = await db.pool.getConnection()
-        return conn.execute(sql, arr, { outFormat: dmdb.OUT_FORMAT_OBJECT })
+        try {
+            const conn = await db.pool.getConnection()
+            return conn.execute(sql, arr, { outFormat: dmdb.OUT_FORMAT_OBJECT })
+        } catch (e) {
+
+        }
     }
 
     /**
@@ -111,10 +115,12 @@ class Model {
             // conn = await this.pool.getConnection()
             for (let i = 0; i < insert_arr.length; i++) {
                 if (i === insert_arr.length - 1) {
-                    sql += ` (${Object.values(insert_arr[i]).toString()})`
+                    const data = JSON.stringify(Object.values(insert_arr[i])).replace('[', '(').replace(']', ')')
+                    sql += ` ${data}`
                     break
                 }
-                sql += ` (${Object.values(insert_arr[i]).toString()}),`
+                const data = JSON.stringify(Object.values(insert_arr[i])).replace('[', '(').replace(']', ')')
+                sql += ` ${data},`
             }
             const result = await this.executes(sql, arr)
             if (result?.rowsAffected !== -1) {
@@ -122,9 +128,8 @@ class Model {
             } else {
                 return 'successful'
             }
-            // return result
         } catch (e) {
-            Response.error(e, 'sql批量插入语句执行失败')
+            Response.error(e, 'sql批量插入语句执行失败', 500)
             // console.log('sql批量插入执行失败', sql, e)
         }
     }
@@ -167,6 +172,12 @@ class Model {
         }
     }
 
+    /**
+     * 老版本sql执行
+     * @param sql
+     * @param arr
+     * @returns {Promise<*>}
+     */
     async execute (sql, arr = []) {
         let conn
         try {

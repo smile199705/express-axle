@@ -29,7 +29,7 @@ express-axle是一个基于express框架封装的满足业务的面向对象业�
 ├── package-lock.json           // npm版本包锁定
 ├── package.json                // npm包管理
 ├── routers                     // 路由处理
-│   └── Router.js
+│   └── Routerss.js
 ├── services                    // service层,业务层
 │   ├── BaseService.js
 │   └── UserService.js

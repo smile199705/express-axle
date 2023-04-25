@@ -5,13 +5,12 @@ class UserModel extends Model {
         super()
     }
 
-    async getList (params) {
+    async getUsers (params) {
         return {
-            id: 1,
-            test: params
+            id: 5678,
+            name: params
         }
     }
-
 }
 
 export default UserModel

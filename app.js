@@ -81,4 +81,7 @@ app.start().then(() => {
         .then(() => dm_log())
         .catch((e) => dm_connection_fail(e))
     start_printf(app.PORT, app.ipAddress)
+}).catch((e) => {
+    console.error(e)
+    process.exit(1)
 })

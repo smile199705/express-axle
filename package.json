@@ -14,6 +14,8 @@
   "license": "ISC",
   "dependencies": {
     "@napi-rs/snappy-linux-x64-gnu": "^7.2.2",
+    "awilix": "^8.0.1",
+    "awilix-express": "^7.0.0",
     "chalk": "^5.2.0",
     "cluster": "^0.7.7",
     "cors": "^2.8.5",
@@ -22,6 +24,7 @@
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "http-errors": "^2.0.0",
+    "inversify": "^6.0.1",
     "lodash": "^4.17.21",
     "morgan": "^1.10.0",
     "nconf": "^0.12.0",

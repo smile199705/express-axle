@@ -22,6 +22,9 @@
       "semi": [
         "error", "never"
       ],
+      "indent": ["error", "tab"],
+      "no-unused-vars":2, // 禁止出现未使用过的变量
+      "no-useless-return":"error", // 禁止没有任何内容的return;
       // 分号前后空格
       "semi-spacing": [
         "error", { "before": false, "after": true }],
@@ -34,7 +37,7 @@
       // 禁止 throw 字面量，必须 throw 一个 Error 对象
       "no-throw-literal": "warn",
       // 禁止在定义变量之前就使用它
-      "no-use-before-define": "off",
+      "no-use-before-define": "error",
       // 对象字面量中冒号的前后空格
       "key-spacing": ["error", { "beforeColon": false, "afterColon": true }],
       // 引号类型 `` "" ''
@@ -70,6 +73,10 @@
 
       "space-infix-ops": "warn", // 要求操作符周围有空格
 
+      "no-implicit-coercion": "error", // 禁止出现空函数.如果一个函数包含了一条注释，它将不会被认为有问题。
+
+      "no-loop-func":"error", // 禁止在循环中出现 function 声明和表达式。
+
       "operator-linebreak": ["error", "after"], // 强制操作符使用一致的换行符
 
       "max-nested-callbacks": ["error", 3], // 强制回调函数最大嵌套深度
@@ -87,6 +94,14 @@
       "no-unsafe-negation": ["error"], // 禁止对关系运算符的左操作数使用否定操作符
 
 //       "no-magic-numbers": ["error", { "ignoreArrayIndexes": true }], // 禁用魔术数字
+
+      "no-multiple-empty-lines": ["error", {"max": 2}], // 空行不能够超过2行。
+
+      "no-shadow-restricted-names": "error", // 禁止对一些关键字或者保留字进行赋值操作，比如NaN、Infinity、undefined、eval、arguments等
+
+      "no-undef-init": "error", // 禁止把undefined赋值给一个变量。
+
+      "lines-around-comment": ["error", { "beforeBlockComment": true }], // 要求在注释周围有空行 ( 要求在块级注释之前有一空行)
 
       "no-empty": ["error", { "allowEmptyCatch": true }], // 禁止出现空语句块
 
