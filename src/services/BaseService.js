@@ -1,6 +1,6 @@
 class BaseService {
-    constructor () {
-    }
+	constructor () {
+	}
 }
 
 export default BaseService

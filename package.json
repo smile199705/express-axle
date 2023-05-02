@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "node app.js",
+    "lint-staged": "lint-staged",
     "start:dev": "nodemon app.js",
     "start": "pm2 start app.js --name=express-axle -f"
   },
@@ -13,9 +14,6 @@
   "author": "杨伟",
   "license": "ISC",
   "dependencies": {
-    "@napi-rs/snappy-linux-x64-gnu": "^7.2.2",
-    "awilix": "^8.0.1",
-    "awilix-express": "^7.0.0",
     "chalk": "^5.2.0",
     "cluster": "^0.7.7",
     "cors": "^2.8.5",
@@ -38,10 +36,20 @@
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^7.2.0",
     "eslint-plugin-prettier": "^4.0.0",
+    "husky": "^4.3.8",
+    "lint-staged": "^13.2.2",
     "prettier": "^2.8.7",
     "silly-datetime": "^0.1.2",
     "typescript": "^5.0.3",
     "webpack": "^5.75.0",
     "webpack-cli": "^5.0.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": "eslint"
   }
 }
