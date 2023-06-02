@@ -1,18 +1,12 @@
-// user-service.js
-
-// import UserModel from './user-model'
-
-// import UserModel from '../models/UserModel.js'
 import BaseService from './BaseService.js'
 import MenuModel from '../models/MenuModel.js'
-// import MenuModel from '../models/MenuModel.js'
-// import MenuModel from '../models/MenuModel.js'
+
 
 class MenuService extends BaseService {
 	constructor () {
 		super()
-		this.menuModel = new MenuModel()
-		console.log(this.menuModel, 'menuModel.......')
+		this.model = new MenuModel()
+		console.log(this.model, 'model.......')
 	}
 
 	/**
@@ -20,8 +14,7 @@ class MenuService extends BaseService {
      * @returns {Promise<{}>}
      */
 	async getMenu (params) {
-		// console.log(this.menuModel, 'WWWWWWWWWWWWWWWWWW')
-		const res = await this.menuModel.getMenu(params)
+		const res = await this.model.getMenu(params)
 		return res
 	}
 

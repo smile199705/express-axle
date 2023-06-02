@@ -8,7 +8,6 @@ import bodyParser from 'express'
 import morgan from 'morgan'
 import Run from './src/utils/run.js'
 import WebSocketServer from './src/websocket/WebSocketServer.js'
-// import { Server } from 'socket.io'
 import Controller from './src/controllers/Controller.js'
 import { server as Server } from 'websocket'
 import { dm_connection_fail, dm_log, start_printf } from './src/utils/start_printf.js'
@@ -24,7 +23,6 @@ class App {
 
 	async start () {
 		try {
-			// await db.createPool();
 			this.setUpMiddleware()
 			this.setUpRoutes()
 			this.startServer()

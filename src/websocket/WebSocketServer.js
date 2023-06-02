@@ -1,5 +1,5 @@
 // import stream from 'stream'
-// import UserService from '../services/UserService.js'
+// import TableService from '../services/TableService.js'
 import MessageSocketServer from './MessageSocketServer.js'
 
 /**
@@ -15,7 +15,7 @@ export default class WebSocketServer {
 		this.connections = {}
 		this.lastMessageTime = {}
 		this.heartbeatTimers = {}
-		// this.service = new UserService()
+		// this.service = new TableService()
 		this.messageSocketServer = new MessageSocketServer()
 	}
 

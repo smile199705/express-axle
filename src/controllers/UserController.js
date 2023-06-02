@@ -1,18 +1,13 @@
 import Response from '../utils/response.js'
 import Router from '../routers/Router.js'
 import UserService from '../services/UserService.js'
-// import UserService from '../services/UserService.js'
+// import TableService from '../services/TableService.js'
 
 class UserController extends Router {
 	constructor () {
 		super()
-		// console.log(option, '$$$$$$$$$$$$$$')
-		// this.userController = option
-		// this.service = new UserService()
-		// console.log(service, '这是userController中的serivce实例')
 		this.userService = new UserService()
-		console.log(this.userService, 'userService.......')
-		// console.log(option.userService.model.getUsers(), 'userController..........')
+		console.log(this.userService, '@@@@@@@')
 		// 添加路由处理函数和中间件
 		this.addRouteHandler('GET', '/users', this.getUsers.bind(this))
 		// this.addRouteHandler('GET', '/users/:id', this.getUserById.bind(this))
@@ -25,9 +20,7 @@ class UserController extends Router {
 	async getUsers (req, res) {
 		const { params } = req.query
 		try {
-			// console.log(this.userService, 'userService.......')
 			const users = await this.userService.getUsers(params)
-			console.log(users, '###########')
 			Response.success(res, users)
 		} catch (err) {
 			Response.error(res, err.message, 500)

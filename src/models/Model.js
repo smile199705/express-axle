@@ -1,17 +1,9 @@
-// import { knex } from 'knex';
-// import { DmDriver } from 'knex-dm-dialect';
 import Response from '../utils/response.js'
 import { db } from '../utils/dmdb.js'
 import dmdb from 'dmdb'
 
 class Model {
-	constructor () {
-		// // 实例已经存在，则返回该实例
-		// if (Model.instance) {
-		//     return Model.instance
-		// }
-		// Model.instance = this
-	}
+	constructor () {}
 
 	/**
      * 查询(内部使用)
@@ -42,7 +34,6 @@ class Model {
 			return { list }
 		} catch (e) {
 			Response.error(e, 'sql语句执行失败')
-			console.log('sql执行失败', sql, e)
 		}
 	}
 
@@ -60,7 +51,6 @@ class Model {
 			return { list }
 		} catch (e) {
 			Response.error(e, 'sql语句执行失败')
-			// console.log('sql执行失败', sql, e)
 		}
 	}
 
@@ -103,7 +93,6 @@ class Model {
 			}
 		} catch (e) {
 			Response.error(e, 'sql插入语句执行失败')
-			// console.log('sql插入执行失败', sql, e)
 		}
 	}
 
@@ -112,7 +101,6 @@ class Model {
 		const value = Object.keys(insert_arr[0]).toString()
 		let sql = `INSERT INTO ${String(table)} (${value}) VALUES `
 		try {
-			// conn = await this.pool.getConnection()
 			for (let i = 0; i < insert_arr.length; i++) {
 				if (i === insert_arr.length - 1) {
 					const data = JSON.stringify(Object.values(insert_arr[i])).replace('[', '(').replace(']', ')')

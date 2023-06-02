@@ -1,6 +1,6 @@
 import Response from '../utils/response.js'
-// import UserService from './user-service'
-// import UserService from '../services/UserService.js'
+// import TableService from './user-service'
+// import TableService from '../services/TableService.js'
 import Router from '../routers/Router.js'
 // import MenuModel from '../models/MenuModel.js'
 // import MenuService from '../services/MenuService.js'

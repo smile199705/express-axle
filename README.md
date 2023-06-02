@@ -19,7 +19,7 @@ express-axle是一个基于express框架封装的满足业务的面向对象业�
 ├── controllers                 // 控制器入口
 │   ├── Controller.js
 │   ├── AdminController.js
-│   └── UserController.js
+│   └── TableController.js
 ├── dist
 ├── middleware
 │   └── AuthMiddleware.js
@@ -32,7 +32,7 @@ express-axle是一个基于express框架封装的满足业务的面向对象业�
 │   └── Routerss.js
 ├── services                    // service层,业务层
 │   ├── BaseService.js
-│   └── UserService.js
+│   └── TableService.js
 ├── utils                       // 工具包
 │   ├── common.js               // 公共参数
 │   ├── dmdb.js                 // 达梦数据库连接

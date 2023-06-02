@@ -2,10 +2,6 @@ import Router from '../routers/Router.js'
 import UserController from './UserController.js'
 import MenuController from './MenuController.js'
 // import { createContainer, asClass } from 'awilix'
-// import MenuModel from '../models/MenuModel.js'
-// import MenuService from '../services/MenuService.js'
-// import UserModel from '../models/UserModel.js'
-// import UserService from '../services/UserService.js'
 
 /**
  * 实例化控制器并获取路由
@@ -41,15 +37,15 @@ class Controller extends Router {
 		//     menuController: asClass(MenuController).scoped(),
 		//     menuModel: asClass(MenuModel).scoped(),
 		//     menuService: asClass(MenuService).scoped(),
-		//     userController: asClass(UserController).scoped(),
+		//     userController: asClass(TableController).scoped(),
 		//     userModel: asClass(UserModel).scoped(),
-		//     userService: asClass(UserService).scoped()
+		//     userService: asClass(TableService).scoped()
 		// })
 		// const userModel = new UserModel()
 		// console.log(userModel, 'userModel。。。。。。。。')
-		// const userService = new UserService(userModel)
+		// const userService = new TableService(userModel)
 		// console.log(userService, 'userService。。。。。。。。')
-		// const userController = new UserController(userService)
+		// const userController = new TableController(userService)
 		// console.log(userController, 'userController..........')
 		//
 		// const menuModel = new MenuModel()

@@ -8,7 +8,16 @@
     "dev": "node app.js",
     "lint-staged": "lint-staged",
     "start:dev": "nodemon app.js",
-    "start": "pm2 start app.js --name=express-axle -f"
+    "start": "pm2 start app.js --name=express-axle -f",
+    "build": "pkg . -t -o ./lib/express-axle",
+    "compile": "npx babel . --out-dir dist"
+  },
+  "bin": "./app.js",
+  "pkg": {
+    "script": "dev",
+    "assert": [
+      ""
+    ]
   },
   "type": "module",
   "author": "杨伟",
@@ -32,6 +41,10 @@
     "websocket": "^1.0.34"
   },
   "devDependencies": {
+    "@babel/cli": "^7.21.5",
+    "@babel/core": "^7.22.1",
+    "@babel/plugin-transform-modules-commonjs": "^7.21.5",
+    "@babel/preset-env": "^7.22.4",
     "@typescript-eslint/parser": "^5.54.0",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^7.2.0",
@@ -40,9 +53,7 @@
     "lint-staged": "^13.2.2",
     "prettier": "^2.8.7",
     "silly-datetime": "^0.1.2",
-    "typescript": "^5.0.3",
-    "webpack": "^5.75.0",
-    "webpack-cli": "^5.0.1"
+    "typescript": "^5.0.3"
   },
   "husky": {
     "hooks": {
