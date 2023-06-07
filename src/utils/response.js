@@ -9,7 +9,8 @@ class Response {
 		})
 	}
 
-	static error (res, message, status = 500) {
+	static error (res, err) {
+		const { message, status } = err
 		res.status(status).json({
 			code: status,
 			message: message ?? 'error',

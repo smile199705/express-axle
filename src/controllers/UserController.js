@@ -10,11 +10,7 @@ class UserController extends Router {
 		console.log(this.userService, '@@@@@@@')
 		// 添加路由处理函数和中间件
 		this.addRouteHandler('GET', '/users', this.getUsers.bind(this))
-		// this.addRouteHandler('GET', '/users/:id', this.getUserById.bind(this))
-		// this.addRouteHandler('POST', '/users', this.createUser.bind(this))
-		// this.addRouteHandler('PUT', '/users/:id', this.updateUser.bind(this))
-		// this.addRouteHandler('DELETE', '/users/:id', this.deleteUser.bind(this))
-		// this.addMiddleware(this.authMiddleware.bind(this))
+		this.addRouteHandler('POST', '/users/insert', this.insertUser.bind(this))
 	}
 
 	async getUsers (req, res) {
@@ -23,7 +19,7 @@ class UserController extends Router {
 			const users = await this.userService.getUsers(params)
 			Response.success(res, users)
 		} catch (err) {
-			Response.error(res, err.message, 500)
+			Response.error(res, err)
 		}
 	}
 
@@ -34,7 +30,18 @@ class UserController extends Router {
 			const user = await this.userService.getUserById(id)
 			Response.success(res, user)
 		} catch (err) {
-			Response.error(res, err.message, 404)
+			Response.error(res, err)
+		}
+	}
+
+	async insertUser (req, res) {
+		// 建议或者提倡在controller层进行参数解构
+		const body = req.body
+		try {
+			const user = await this.userService.insertUser(body)
+			Response.success(res, user)
+		} catch (err) {
+			Response.error(res, err)
 		}
 	}
 }

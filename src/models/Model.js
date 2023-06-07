@@ -14,7 +14,7 @@ class Model {
 	async executes (sql, arr = []) {
 		try {
 			const conn = await db.pool.getConnection()
-			return conn.execute(sql, arr, { outFormat: dmdb.OUT_FORMAT_OBJECT })
+			return await conn.execute(sql, arr, { outFormat: dmdb.OUT_FORMAT_OBJECT })
 		} catch (e) {
 
 		}
@@ -54,14 +54,13 @@ class Model {
 		}
 	}
 
-	/**
-     * 查询语句并返回总的数据条数
+	/** 查询语句并返回总的数据条数
      * @param sql_list 查询列表sql
      * @param sql_count 查询列表总数量sql，别名统一为 'total'， 保持系统一致
      * @param arr_list
      * @param arr_count
      * @returns {Promise<{total: (number|number), list: any}>} 返回结果为：
-     * { list: [{ "id": "110", "age": 18 }, { "id": "110", "age": 18 }], total: 200 } 格式
+     * { list: [{ "id": "110", "age": 18 }, { "id": "110", "age": 18 }], total: 2 } 格式
      */
 	async findAndCount (sql_list, sql_count, arr_list = [], arr_count = []) {
 		try {
@@ -70,7 +69,7 @@ class Model {
 				this.executes(sql_count, arr_count)
 			])
 			const list = JSON.parse(JSON.stringify(result?.rows))
-			const total = parseInt(count?.rows[0]['TOTAL']) ?? +0
+			const total = parseInt(count?.rows[0]['total']) ?? +0
 			return { list, total }
 		} catch (e) {
 			Response.error(e, 'sql语句执行失败')
@@ -78,19 +77,15 @@ class Model {
 		}
 	}
 
-
+	// 单条对象插入
 	async insert (table, insert_obj, arr = []) {
 		try {
-			// const sql = `INSERT INTO ${String(table)} (${key.toString()}) VALUES (${value.toString()})`
-			const keyValuePairs = Object.entries(insert_obj).map(([key, value]) => `${key}=${value}`)
-			const value = keyValuePairs.join(',')
-			const sql = `INSERT INTO ${String(table)} SET ` + value
+			let sql = `INSERT INTO ${String(table)} (${Object.keys(insert_obj).toString()}) VALUES`
+			const data1 = JSON.stringify(Object.values(insert_obj)).replace('[', '(').replace(']', ')').replaceAll('"', '\'')
+			const data2 = data1.replace('[', '(').replace(']', ')')
+			sql += ` ${data2}`
 			const result = await this.executes(sql, arr)
-			if (result?.rowsAffected !== -1) {
-				return 'failed'
-			} else {
-				return 'successful'
-			}
+			return result?.rowsAffected > 0 ? 'successful' : 'failed'
 		} catch (e) {
 			Response.error(e, 'sql插入语句执行失败')
 		}
@@ -98,8 +93,8 @@ class Model {
 
 	// 批量插入执行语句
 	async insertMany (table, insert_arr, arr = []) {
-		const value = Object.keys(insert_arr[0]).toString()
-		let sql = `INSERT INTO ${String(table)} (${value}) VALUES `
+		const key = Object.keys(insert_arr[0]).toString()
+		let sql = `INSERT INTO ${String(table)} (${key}) VALUES `
 		try {
 			for (let i = 0; i < insert_arr.length; i++) {
 				if (i === insert_arr.length - 1) {
@@ -111,11 +106,7 @@ class Model {
 				sql += ` ${data},`
 			}
 			const result = await this.executes(sql, arr)
-			if (result?.rowsAffected !== -1) {
-				return 'failed'
-			} else {
-				return 'successful'
-			}
+			return result?.rowsAffected > 0 ? 'successful' : 'failed'
 		} catch (e) {
 			Response.error(e, 'sql批量插入语句执行失败', 500)
 			// console.log('sql批量插入执行失败', sql, e)

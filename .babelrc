@@ -9,5 +9,10 @@
       "allowTopLevelThis": true,
       "loose": true
     }]
+  ],
+  "ignore": [
+    "node_modules",
+    ".babelrc",
+    "configMap.json"
   ]
 }

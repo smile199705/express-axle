@@ -5,21 +5,24 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "node app.js",
+    "dev": "node ./src/app.js",
+    "dev_dist": "node ./dist/app.js",
     "lint-staged": "lint-staged",
     "start:dev": "nodemon app.js",
     "start": "pm2 start app.js --name=express-axle -f",
     "build": "pkg . -t -o ./lib/express-axle",
-    "compile": "npx babel . --out-dir dist"
+    "compile": "npx babel ./src --out-dir dist"
   },
-  "bin": "./app.js",
+  "bin": "./dist/app.js",
   "pkg": {
-    "script": "dev",
+    "script": "dev_dist",
     "assert": [
-      ""
+      "src",
+      "node_modules",
+      "lib",
+      "configMap.json"
     ]
   },
-  "type": "module",
   "author": "杨伟",
   "license": "ISC",
   "dependencies": {

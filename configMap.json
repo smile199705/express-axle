@@ -2,7 +2,7 @@
   "env": "development",
   "port": 8081,
   "db": {
-    "url": "dm://SYSDBA:SYSDBA@172.20.10.10:5236?autoCommit=true",
+    "url": "dm://SYSDBA:SYSDBA@localhost:5236?autoCommit=true",
     "rowLength": 100
   }
 }

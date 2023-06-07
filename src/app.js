@@ -6,12 +6,12 @@ nconf.argv().env().file({ file: 'configMap.json' })
 global.cc = nconf.get()
 import bodyParser from 'express'
 import morgan from 'morgan'
-import Run from './src/utils/run.js'
-import WebSocketServer from './src/websocket/WebSocketServer.js'
-import Controller from './src/controllers/Controller.js'
+import Run from './utils/run.js'
+import WebSocketServer from './websocket/WebSocketServer.js'
+import Controller from './controllers/Controller.js'
 import { server as Server } from 'websocket'
-import { dm_connection_fail, dm_log, start_printf } from './src/utils/start_printf.js'
-import { db } from './src/utils/dmdb.js'
+import { dm_connection_fail, dm_log, start_printf } from './utils/start_printf.js'
+import { db } from './utils/dmdb.js'
 
 class App {
 	constructor () {

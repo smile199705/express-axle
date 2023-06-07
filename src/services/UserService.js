@@ -27,6 +27,11 @@ class UserService extends BaseService {
 		const user = { 'name': '张三', age: 26, id }
 		return user
 	}
+
+	async insertUser (body) {
+		const result = await this.model.insert('INFO', body)
+		return result
+	}
 }
 
 export default UserService

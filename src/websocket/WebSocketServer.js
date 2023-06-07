@@ -1,11 +1,9 @@
-// import stream from 'stream'
-// import TableService from '../services/TableService.js'
 import MessageSocketServer from './MessageSocketServer.js'
 
 /**
  * webSocket服务
  * 要求： 1、客户端发送websocket消息要为json对象格式， 例如： { "type": "message", "text": "test-123" }
- * 参数含义： type：表示消息类型，是message消息，还是heartbeat心跳检测消息； test：'-'前面为房间号，后面为单页面传的参数
+ * 参数含义： type：表示消息类型，message是消息，heartbeat是心跳检测消息； test：'-'前面为房间号，后面为单页面传的参数
  */
 export default class WebSocketServer {
 
@@ -15,7 +13,6 @@ export default class WebSocketServer {
 		this.connections = {}
 		this.lastMessageTime = {}
 		this.heartbeatTimers = {}
-		// this.service = new TableService()
 		this.messageSocketServer = new MessageSocketServer()
 	}
 
@@ -127,18 +124,29 @@ export default class WebSocketServer {
 
 	handleRequest (request) {
 		console.log('Client connected from ' + request.remoteAddress)
-
 		const connection = request.accept(null, request.origin)
-		// const clientId = request.remoteAddress + ':' + connection.socket.remotePort
-		// console.log(clientId, '============')
-		// const connectionTime = new Date().getTime()
-		// this.connections[clientId] = { connection, connectionTime }
-		// connection.sendUTF(JSON.stringify({ type: 'message', text: 'Welcome!' }))
+		const clientId = request.remoteAddress + ':' + connection.socket.remotePort
+		const connectionTime = new Date().getTime()
+		// 同一个客户端多次连接，占用同一条连接； 多个相同的客户端（同一机器开多个页面）
+		/*
+			存在的请求场景：
+				1、同一个页面（客户端）进行多次连接，多次关闭操作： 可以保证是同一个连接
+				2、开启多个页面（客户端）
+		 */
+		this.connections[clientId] = { connection, connectionTime }
+		connection.sendUTF(JSON.stringify({ type: 'message', text: 'Welcome!' }))
 		console.log('客户端连接建立成功')
-		connection.sendUTF('服务端发送消息已建立连接')
+		// connection.sendUTF('服务端发送消息已建立连接')
 		// this.startHeartbeat(clientId)
 		// connection.on('message', (message) => this.handleMessage(message, clientId, connection))
-		connection.on('message', (message) => this.handleMessage(message, connection))
+		connection.on('message', (message) => {
+			console.log('开启消息实时同步')
+			this.handleMessage(message, connection)
+		})
+		connection.on('close', (reasonCode, description) => {
+			console.log(`关闭${clientId} websocket连接， ${reasonCode}: ${description}`)
+			this.connections[clientId] = {}
+		})
 	}
 
 	// Start heartbeat timer for client
@@ -147,16 +155,19 @@ export default class WebSocketServer {
 		let heartbeatTimer = setInterval(() => {
 			const currentTime = new Date().getTime()
 			const timeSinceLastMessage = currentTime - this.lastMessageTime[clientId]
+			// 超过指定时间，为发生数据交互，则发送心跳数据给前端
 			if (timeSinceLastMessage > this.heartbeatInterval) {
+				connection.sendUTF(JSON.stringify({ type: 'heartbeat' }))
+			} else {
 				console.log(`Client ${clientId} timed out`)
 				clearInterval(heartbeatTimer)
 				delete this.connections[clientId]
 				connection.close()
-			} else {
-				connection.sendUTF(JSON.stringify({ type: 'heartbeat' }))
 			}
 		}, this.heartbeatInterval)
-		this.heartbeatTimers[clientId] = heartbeatTimer
+		// console.log(heartbeatTimer, '######')
+		// this.heartbeatTimers[clientId] = heartbeatTimer
+		// console.log(this.heartbeatTimers[clientId], '@@@@@@#@#@#2')
 	}
 
 	handleMessage (message, connection) {

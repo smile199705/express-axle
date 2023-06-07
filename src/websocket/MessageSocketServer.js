@@ -3,7 +3,7 @@ import UserModel from '../models/UserModel.js'
 class MessageSocketServer {
 
 	constructor () {
-		// this.userModel = new UserModel()
+		this.userModel = new UserModel()
 		this.clearTime = null
 		this.clearTime1 = null
 	}
@@ -12,7 +12,8 @@ class MessageSocketServer {
 		if (events === 'test') {
 			if (this.clearTime) clearInterval(this.clearTime)
 			setInterval(async () => {
-				const res = await new UserModel().getUsers(params)
+				const res = await this.userModel.getUsers(params)
+				// console.log(JSON.stringify(res))
 				return connection.sendUTF('test-' + JSON.stringify(res))
 			}, 1000)
 		}
