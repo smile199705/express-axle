@@ -7,7 +7,6 @@ class UserController extends Router {
 	constructor () {
 		super()
 		this.userService = new UserService()
-		console.log(this.userService, '@@@@@@@')
 		// 添加路由处理函数和中间件
 		this.addRouteHandler('GET', '/users', this.getUsers.bind(this))
 		this.addRouteHandler('POST', '/users/insert', this.insertUser.bind(this))

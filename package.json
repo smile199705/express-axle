@@ -6,27 +6,34 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "node ./src/app.js",
+    "dev_socket": "node ./src/websocket.js",
     "dev_dist": "node ./dist/app.js",
+    "dev_socket_dist": "node ./dist/websocket.js",
     "lint-staged": "lint-staged",
     "start:dev": "nodemon app.js",
-    "start": "pm2 start app.js --name=express-axle -f",
-    "build": "pkg . -t -o ./lib/express-axle",
+    "start": "pm2 start ./src/app.js --name=express-axle -f",
+    "build": "pkg . -t -o ./lib/express-axle-websocket",
     "compile": "npx babel ./src --out-dir dist"
   },
-  "bin": "./dist/app.js",
+  "bin": "./dist/websocket.js",
   "pkg": {
-    "script": "dev_dist",
+    "script": [
+      "dev_socket_dist"
+    ],
     "assert": [
-      "src",
-      "node_modules",
-      "lib",
+      "/src",
+      "/node_modules",
+      "/lib",
       "configMap.json"
+    ],
+    "targets": [
+      "node14-macos-arm64"
     ]
   },
+  "type": "module",
   "author": "杨伟",
   "license": "ISC",
   "dependencies": {
-    "chalk": "^5.2.0",
     "cluster": "^0.7.7",
     "cors": "^2.8.5",
     "days": "^1.1.1",
@@ -39,7 +46,8 @@
     "morgan": "^1.10.0",
     "nconf": "^0.12.0",
     "os": "^0.1.2",
-    "pm2": "^5.2.2",
+    "pkg": "5.6.0",
+    "pm2": "^5.3.0",
     "socket.io": "^4.6.1",
     "websocket": "^1.0.34"
   },

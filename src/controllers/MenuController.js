@@ -1,38 +1,19 @@
 import Response from '../utils/response.js'
-// import TableService from './user-service'
-// import TableService from '../services/TableService.js'
 import Router from '../routers/Router.js'
-// import MenuModel from '../models/MenuModel.js'
-// import MenuService from '../services/MenuService.js'
-// import Model from '../models/Model.js'
-// import MenuModel from '../models/MenuModel.js'
-// import MenuService from '../services/MenuService.js'
-// import container from '../utils/container.js'
 import MenuService from '../services/MenuService.js'
 
 class MenuController extends Router {
 	constructor () {
 		super()
-		// this.service = new MenuService()
 		this.menuService = new MenuService()
-		console.log(this.menuService, 'menuService.......')
-		// console.log(this.menuService, '############')
 		// 添加路由处理函数和中间件
-		// console.log(this.service, '!!!!!!!!!!!!!!!!!')
 		this.addRouteHandler('GET', '/menu', this.getMenu.bind(this))
-		// this.addRouteHandler('GET', '/users', this.getUserById.bind(this))
-		// this.addRouteHandler('POST', '/users', this.createUser.bind(this))
-		// this.addRouteHandler('PUT', '/users/:id', this.updateUser.bind(this))
-		// this.addRouteHandler('DELETE', '/users/:id', this.deleteUser.bind(this))
-		// this.addMiddleware(this.authMiddleware.bind(this))
 	}
 
 	async getMenu (req, res) {
 		const { params } = req.query
 		try {
-			// console.log(this.menuService, '$$$$$$$$$$$$$$$$$', '!!!!!!!')
 			const users = await this.menuService.getMenu(params)
-			// console.log(users, '###########')
 			Response.success(res, users)
 		} catch (err) {
 			Response.error(res, err.message, 500)

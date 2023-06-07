@@ -3,13 +3,10 @@ import express from 'express'
 import createError from 'http-errors'
 import nconf from 'nconf'
 nconf.argv().env().file({ file: 'configMap.json' })
-global.cc = nconf.get()
-import bodyParser from 'express'
 import morgan from 'morgan'
 import Run from './utils/run.js'
 import WebSocketServer from './websocket/WebSocketServer.js'
 import Controller from './controllers/Controller.js'
-import { server as Server } from 'websocket'
 import { dm_connection_fail, dm_log, start_printf } from './utils/start_printf.js'
 import { db } from './utils/dmdb.js'
 
@@ -35,8 +32,7 @@ class App {
 
 	setUpMiddleware () {
 		this.app.use(express.json())
-		this.app.use(bodyParser.json())
-		this.app.use(bodyParser.urlencoded({ extended: false }))
+		this.app.use(express.urlencoded({ extended: false }))
 		this.app.all('*', function (req, res, next) {
 			res.header('Access-Control-Allow-Origin', '*')
 			res.header('Access-Control-Allow-Headers', 'X-Requested-With')
@@ -62,14 +58,7 @@ class App {
 	}
 
 	startServer () {
-		const server = this.app.listen(this.PORT)
-		// const io = new Server(server, {
-		//     cors: {
-		//         origin: '*'
-		//     }
-		// })
-		const io = new Server({ httpServer: server, autoAcceptConnections: false })
-		this.websocketServer.start(io)
+		this.app.listen(this.PORT)
 	}
 }
 

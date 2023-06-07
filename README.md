@@ -48,3 +48,11 @@ express-axle是一个基于express框架封装的面向对象业务框架，并�
 `npm install`
 ##### 普通启动/热启动/pm2热启动/babel编译/babel编译后启动
 `npm start dev  /  npm run start:dev  /  pm2 start app.js --watch / npm start compile / npm start dev_dist `
+
+###### pkg打包
+```shell
+1、主服务打包： 修改package.json的bin为"./dist/app.js"， 并更正pkg下script内容为"dev_dist"
+2、websocket服务：修改package.json的bin为"./dist/websocket.js"， 并更正pkg下script内容为"dev_socket_dist"
+分别通过npm run build 进行打包
+
+```
