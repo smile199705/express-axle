@@ -15,17 +15,6 @@ express-axle是一个基于express框架封装的面向对象业务框架，并�
 .
 ├── README.md
 ├── configMap.json
-├── dist
-│   ├── app.js
-│   ├── controllers
-│   ├── middleware
-│   ├── models
-│   ├── routers
-│   ├── services
-│   ├── utils
-│   └── websocket
-├── lib
-│   └── express-axle
 ├── package-lock.json
 ├── package.json
 ├── public
@@ -39,10 +28,11 @@ express-axle是一个基于express框架封装的面向对象业务框架，并�
 │   ├── utils
 │   └── websocket
 └── test
-    ├── ceshi.xlsx
-    └── demo.js
 ```
-> configMap.json为配置文件；<br/>dist为es6规范转为commonjs规范之后的源代码；<br/>lib目录为pkg打包后的文件，可直接运行；<br/>src为源代码
+> configMap.json为配置文件；<br/>
+> dist为es6规范转为commonjs规范之后的源代码，通过执行命令自动创建<br/>
+> lib目录为pkg打包后的文件，可直接运行；通过打包命令，会自动创建<br/>
+> src为源代码
 
 ##### 安装
 `npm install`
