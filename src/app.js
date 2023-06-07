@@ -5,7 +5,6 @@ import nconf from 'nconf'
 nconf.argv().env().file({ file: 'configMap.json' })
 import morgan from 'morgan'
 import Run from './utils/run.js'
-import WebSocketServer from './websocket/WebSocketServer.js'
 import Controller from './controllers/Controller.js'
 import { dm_connection_fail, dm_log, start_printf } from './utils/start_printf.js'
 import { db } from './utils/dmdb.js'
@@ -13,7 +12,6 @@ import { db } from './utils/dmdb.js'
 class App {
 	constructor () {
 		this.app = express()
-		this.websocketServer = new WebSocketServer()
 		this.PORT = nconf.get('port') ?? 8080
 		this.ipAddress = Run.getIpAddress() ?? '127.0.0.1'
 	}

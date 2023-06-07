@@ -145,7 +145,9 @@ export default class WebSocketServer {
 		})
 		connection.on('close', (reasonCode, description) => {
 			console.log(`关闭${clientId} websocket连接， ${reasonCode}: ${description}`)
-			this.connections[clientId] = {}
+			this.messageSocketServer.clearLoopTime()
+			delete this.connections[clientId]
+			// this.connections[clientId] = {}
 		})
 	}
 
