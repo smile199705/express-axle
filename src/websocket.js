@@ -47,4 +47,18 @@ socket.start().then(() => {
 	process.exit(1)
 })
 
+/**
+ * 监听未捕获的异常
+ */
+process.on('uncaughtException', (error) => {
+	console.log('uncaughtException', error)
+})
+
+/**
+ * 监听Promise没有被捕获的失败函数
+ */
+process.on('unhandledRejection', (error) => {
+	console.log('unhandledRejection', error)
+})
+
 

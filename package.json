@@ -10,7 +10,8 @@
     "dev_dist": "node ./dist/app.js",
     "dev_socket_dist": "node ./dist/websocket.js",
     "lint-staged": "lint-staged",
-    "start:dev": "nodemon app.js",
+    "start:dev": "nodemon ./src/app.js",
+    "start:socket": "nodemon ./src/websocket.js",
     "start": "pm2 start ./src/app.js --name=express-axle -f",
     "build": "pkg . -t -o ./lib/express-axle-websocket",
     "compile": "npx babel ./src --out-dir dist"

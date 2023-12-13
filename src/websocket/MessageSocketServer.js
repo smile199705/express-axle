@@ -15,6 +15,7 @@ class MessageSocketServer {
 
 	handleMessageData (events, params, connection) {
 		if (events === 'test') {
+			console.log('00000000000')
 			if (this.clearTime) clearInterval(this.clearTime)
 			this.clearTime = setInterval(async () => {
 				const res = await this.userModel.getUsers(params)

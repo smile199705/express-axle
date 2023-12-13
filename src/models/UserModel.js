@@ -6,14 +6,18 @@ class UserModel extends Model {
 	}
 
 	async getUsers (params) {
-		console.log(params)
+		console.log(params, '%%%%%%')
 		// return {
 		// 	id: 5678,
 		// 	name: params
 		// }
 		const sql = 'select * from INFO'
-		const result = await this.findOne(sql)
-		console.log(typeof result, '#########')
+		let result
+		try {
+			result = await this.findOne(sql)
+		} catch (e) {
+			console.log(e, '$$$$$$$', params)
+		}
 		return result
 	}
 
@@ -21,7 +25,6 @@ class UserModel extends Model {
 		const sql = 'select * from INFO'
 		const con = 'select count(*) total from INFO'
 		const result = await this.findAndCount(sql, con)
-		console.log(result, '$$$$$$$$')
 		return result
 	}
 }
