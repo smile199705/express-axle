@@ -14,7 +14,7 @@ class DmDb {
 	// 创建连接池
 	async createPool () {
 		try {
-			console.log(nconf.get('db')?.url, '============')
+
 			this.pool = await dmdb.createPool({
 				connectString: nconf.get('db')?.url,
 				outFormat: dmdb.OUT_FORMAT_OBJECT,
@@ -23,6 +23,7 @@ class DmDb {
 				maxWait: 5000, // 连接等待时间
 				poolTimeout: 8 // 单位秒
 			})
+			// console.log(nconf.get('db')?.url, '============')
 		} catch (e) {
 			throw new Error('createPool error: ' + e.message)
 		}

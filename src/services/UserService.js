@@ -9,7 +9,6 @@ class UserService extends BaseService {
 	constructor () {
 		super()
 		this.model = new UserModel()
-		console.log(this.model, '$$$$$$$$')
 	}
 
 	/**

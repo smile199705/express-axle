@@ -30,7 +30,7 @@ class Model {
 		try {
 			// 返回为json对象, 例如：{ "id": 1, "age": 18 }
 			const result = await this.executes(sql, arr)
-			const list = JSON.parse(JSON.stringify(result?.rows[0]))
+			const list = JSON.parse(JSON.stringify(result?.rows))
 			return { list }
 		} catch (e) {
 			Response.error(e, 'sql语句执行失败')

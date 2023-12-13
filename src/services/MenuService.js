@@ -6,7 +6,6 @@ class MenuService extends BaseService {
 	constructor () {
 		super()
 		this.model = new MenuModel()
-		console.log(this.model, 'model.......')
 	}
 
 	/**
