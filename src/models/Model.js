@@ -47,7 +47,7 @@ class Model {
 		try {
 			// 返回为json对象，例如：[{ "id": 1, "age": 18 }， { "id": 2, "age": 20 }]
 			const result = await this.executes(sql, arr)
-			const list = JSON.parse(JSON.stringify(result?.rows))
+			const list = result && JSON.parse(JSON.stringify(result?.rows))
 			return { list }
 		} catch (e) {
 			Response.error(e, 'sql语句执行失败')
@@ -63,16 +63,19 @@ class Model {
      * { list: [{ "id": "110", "age": 18 }, { "id": "110", "age": 18 }], total: 2 } 格式
      */
 	async findAndCount (sql_list, sql_count, arr_list = [], arr_count = []) {
+		console.log(sql_count, sql_list)
 		try {
 			const [result, count] = await Promise.all([
 				this.executes(sql_list, arr_list),
 				this.executes(sql_count, arr_count)
 			])
-			const list = JSON.parse(JSON.stringify(result?.rows))
+			// console.log(result, '&&&&&&&')
+			const list = result && JSON.parse(JSON.stringify(result?.rows))
 			const total = parseInt(count?.rows[0]['total']) ?? +0
 			return { list, total }
 		} catch (e) {
 			Response.error(e, 'sql语句执行失败')
+			throw new Error('lllllllll')
 			// console.log('sql执行失败', sql_list, sql_count, e)
 		}
 	}
@@ -123,7 +126,7 @@ class Model {
 		const conn = await db.pool.getConnection()
 		try {
 			const result = await conn.execute(sql, arr, { outFormat: dmdb.OUT_FORMAT_OBJECT })
-			return JSON.parse(JSON.stringify(result?.rows))
+			return result && JSON.parse(JSON.stringify(result?.rows))
 		} catch (e) {
 			Response.error(e, 'sql语句执行失败')
 			// console.log('sql执行失败', sql, e)

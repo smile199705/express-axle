@@ -1,9 +1,9 @@
-import UserModel from '../models/UserModel.js'
+import ScreenModel from '../models/ScreenModel.js'
 
 class MessageSocketServer {
 
 	constructor () {
-		this.userModel = new UserModel()
+		this.userModel = new ScreenModel()
 		this.clearTime = null
 		this.clearTime1 = null
 	}
@@ -25,7 +25,7 @@ class MessageSocketServer {
 		if (events === 'hello') {
 			if (this.clearTime1) clearInterval(this.clearTime1)
 			this.clearTime1 = setInterval(async () => {
-				const res = await new UserModel().getUsers(params)
+				const res = await new ScreenModel().getUsers(params)
 				return connection.sendUTF('hello-' + JSON.stringify(res))
 			}, 1000)
 		}
