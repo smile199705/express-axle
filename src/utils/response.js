@@ -10,11 +10,19 @@ class Response {
 	}
 
 	static error (res, err) {
-		const { message, status } = err
+		console.error('this error: ', err)
+		res.status(500).json({
+			code: 500,
+			message: err.toString() ?? 'error',
+			data: {}
+		})
+	}
+
+	static notFound (req, res, status = 404){
 		res.status(status).json({
 			code: status,
-			message: message ?? 'error',
-			data: res ?? {}
+			message: 'Not Found:  ' + req.originalUrl,
+			data: {}
 		})
 	}
 }

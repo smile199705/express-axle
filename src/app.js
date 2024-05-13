@@ -1,6 +1,6 @@
 // app.js
 import express from 'express'
-import createError from 'http-errors'
+// import createError from 'http-errors'
 import nconf from 'nconf'
 nconf.argv().env().file({ file: 'configMap.json' })
 import morgan from 'morgan'
@@ -8,6 +8,7 @@ import Run from './utils/run.js'
 import Controller from './controllers/Controller.js'
 import { dm_connection_fail, dm_log, start_printf } from './utils/start_printf.js'
 import { db } from './utils/dmdb.js'
+import Response from './utils/response.js'
 
 class App {
 	constructor () {
@@ -47,7 +48,8 @@ class App {
 	setUpRoutes () {
 		this.app.use('', Controller.getAllRouter())
 		this.app.use((req, res, next) => {
-			next(createError(404))
+			// next(createError(404))
+			next(Response.notFound(req, res, 404))
 		})
         this.app.use((err, req, res, next) => { // eslint-disable-line
 			console.error(err.stack)

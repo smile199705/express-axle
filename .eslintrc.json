@@ -23,7 +23,7 @@
         "error", "never"
       ],
       "indent": ["error", "tab"],
-      "no-unused-vars":2, // 禁止出现未使用过的变量
+//      "no-unused-vars":1, // 禁止出现未使用过的变量
       "no-useless-return":"error", // 禁止没有任何内容的return;
       // 分号前后空格
       "semi-spacing": [
